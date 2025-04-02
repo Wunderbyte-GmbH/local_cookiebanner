@@ -1,0 +1,45 @@
+{{!
+    This file is part of Moodle - http://moodle.org/
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+}}
+{{!
+    @template local_cookiebanner
+    Template which defines a entities view page.
+    Classes required for JS:
+    * none
+    Data attributes required for JS:
+    * none
+    Context variables required for this template:
+    Example context (json):
+    {
+
+    }
+}}
+<div id="cookie-banner-wrapper">
+    <div id="cookie-banner" class="cookie-banner">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="cookie-text">
+                        {{{text}}}
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="cookie-actions">
+                        <button type="button" class="cookie-btn secondary" id="cookie-settings">{{#str}}advanced, local_cookiebanner{{/str}}</button>
+                        <button type="button" class="cookie-btn secondary" id="cookie-reject">{{#str}}reject, local_cookiebanner{{/str}}</button>
+                        <button type="button" class="cookie-btn primary" id="cookie-accept">{{#str}}accept, local_cookiebanner{{/str}}</button>
+                    </div>
+                </div>
+            </div>
+    </div>
+</div>
