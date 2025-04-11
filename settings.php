@@ -25,6 +25,13 @@ defined('MOODLE_INTERNAL') || die();
 if ($hassiteconfig) {
     $settings = new admin_settingpage('local_cookiebanner', get_string('pluginname', 'local_cookiebanner'));
 
+    $settings->add(new admin_setting_configcheckbox(
+        'local_cookiebanner/enableplugin',
+        get_string('enableplugin', 'local_cookiebanner'),
+        get_string('enableplugin_desc', 'local_cookiebanner'),
+        0,
+    ));
+
     $settings->add(new admin_setting_configtextarea(
         'local_cookiebanner/cookietext',
         get_string('cookietext', 'local_cookiebanner'),

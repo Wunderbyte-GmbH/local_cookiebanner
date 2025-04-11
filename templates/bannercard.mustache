@@ -1,3 +1,4 @@
+{{#templatedata}}
 <div id="cookie-consent-card" class="cookie-consent-card">
     <h3 class="text-center">{{#str}}modalheader, local_cookiebanner{{/str}}</h3>
 
@@ -7,7 +8,7 @@
     gesetzt. Mit Ihrer Zustimmung zum Cookie „MoodleID“ kann auf Wunsch
     der Benutzernamen im Webbrowser gespeichert werden. Beim nächsten
     Login erscheint der Anmeldename bereits automatisch. Erfahren Sie mehr
-    dazu in unseren Datenschutzhinweisen
+    dazu in unseren Datenschutzhinweisen.
     </div>
 
     <div class="cookie-options">
@@ -29,13 +30,13 @@
             {{#str}}save, local_cookiebanner{{/str}}
         </button>
     </div>
-
     <div class="cookie-footer">
-    {{#imprintlink}}
-        <a href="{{imprintlink}}" target="_blank">{{#str}}impressum, local_cookiebanner{{/str}}</a> |
-    {{/imprintlink}}
-    {{#datenschutzlink}}
-        <a href="{{datenschutzlink}}" target="_blank">{{#str}}privacy, local_cookiebanner{{/str}}</a>
-    {{/datenschutzlink}}
+    {{#imprinturl}}
+        <a href="{{imprinturl}}" target="_blank">{{#str}}impressum, local_cookiebanner{{/str}}</a> |
+    {{/imprinturl}}
+    {{#privacyurl}}
+        <a href="{{privacyurl}}" target="_blank">{{#str}}privacy, local_cookiebanner{{/str}}</a>
+    {{/privacyurl}}
     </div>
 </div>
+{{/templatedata}}

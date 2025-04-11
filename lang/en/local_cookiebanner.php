@@ -35,6 +35,8 @@ The essential one is the session cookie, usually called MoodleSession. You must 
 
 The other cookie is purely for convenience, usually called MOODLEID or similar. It just remembers your username in the browser. This means that when you return to this site, the username field on the login page is already filled in for you. It is safe to refuse this cookie - you will just have to retype your username each time you log in.';
 $string['cookietext_desc'] = 'Text displayed in the cookie banner. You can include basic HTML.';
+$string['enableplugin'] = 'Enable cookie banner';
+$string['enableplugin_desc'] = 'If disabled, the cookie banner will not be shown.';
 $string['impressum'] = 'Imprint';
 $string['imprinturl'] = 'Imprint URL';
 $string['imprinturl_desc'] = 'Link to your site\'s legal imprint (Impressum) page.';

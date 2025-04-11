@@ -23,6 +23,7 @@
 
 namespace local_cookiebanner\local;
 use core\hook\output\before_http_headers;
+use stdClass;
 
 /**
  * Hook_callbacks for local_cookiebanner
@@ -35,6 +36,11 @@ class hook_callbacks {
      */
     public static function before_http_headers(before_http_headers $hook): void {
         global $PAGE, $CFG;
+
+        if (!get_config('local_cookiebanner', 'enableplugin')) {
+            return;
+        }
+
         $cookiename = 'MOODLEID1_' . $CFG->sessioncookie;
 
         if (isset($_COOKIE[$cookiename])) {
@@ -56,11 +62,13 @@ class hook_callbacks {
             'local_cookiebanner/banner',
             'init',
             [
-                'text' => $cookietext,
-                'showadvanced' => $showadvanced,
-                'advancedtext' => $advancedtext,
-                'imprinturl' => $imprinturl,
-                'privacyurl' => $privacyurl,
+                'templatedata' => [
+                    'showadvanced' => $showadvanced,
+                    'advancedtext' => $advancedtext,
+                    'imprinturl' => $imprinturl,
+                    'privacyurl' => $privacyurl,
+                ],
+                'loggedin' => isloggedin(),
             ]
         );
 
@@ -70,6 +78,13 @@ class hook_callbacks {
                 'init',
                 [
                     'hascookie' => $hascookie,
+                    'templatedata' => [
+                        'showadvanced' => $showadvanced,
+                        'advancedtext' => $advancedtext,
+                        'imprinturl' => $imprinturl,
+                        'privacyurl' => $privacyurl,
+                    ],
+                    'loggedin' => isloggedin(),
                 ]
             );
         }

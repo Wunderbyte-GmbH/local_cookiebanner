@@ -6,14 +6,14 @@
 
 import Ajax from 'core/ajax';
 
-export const init = (hascookie) => {
+export const init = (hascookie, templatedata, loggedin) => {
     const link = document.getElementById('cookie-settings-link');
     if (link) {
         link.addEventListener('click', (e) => {
             e.preventDefault();
 
             require(['local_cookiebanner/banner'], function(banner) {
-                banner.showbanner('Your text here', true, 'Advanced info text here', true);
+                banner.showbanner(templatedata, loggedin);
             });
         });
     }

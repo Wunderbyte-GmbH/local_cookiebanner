@@ -10,15 +10,15 @@ import {getString} from 'core/str';
 import * as Setcookie from 'local_cookiebanner/init'; // ← import your init module
 let bannerisopen = false;
 
-export const showbanner = (text, showadvanced, advancedtext, loggedin) => {
+export const showbanner = (templatedata, loggedin) => {
     if (bannerisopen) {
         return;
     }
-    bannerisopen = true; // ✅ Lock
-    return Templates.renderForPromise('local_cookiebanner/bannercard', {
-        text,
-        showadvanced
-    }).then(({ html, js }) => {
+    console.log(templatedata);
+    bannerisopen = true;
+    return Templates.renderForPromise('local_cookiebanner/bannercard', 
+        {'templatedata': templatedata}
+    ).then(({ html, js }) => {
         const container = document.createElement('div');
         container.innerHTML = html;
         const banner = container.firstElementChild;
@@ -61,19 +61,19 @@ export const showbanner = (text, showadvanced, advancedtext, loggedin) => {
         });
 
         const settingsButton = banner.querySelector("#cookie-settings");
-        if (showadvanced && settingsButton) {
-            settingsButton.addEventListener("click", () => {
-                ModalFactory.create({
-                    title: getString('modalheader', 'local_cookiebanner'),
-                    body: advancedtext,
-                }).then(modal => modal.show())
-                  .catch(error =>
-                    // eslint-disable-next-line no-console
-                    console.error('Modal creation failed:', error));
-            });
-        } else if (settingsButton) {
-            settingsButton.style.display = "none";
-        }
+        // if (templatedata.showadvanced && settingsButton) {
+        //     settingsButton.addEventListener("click", () => {
+        //         ModalFactory.create({
+        //             title: getString('modalheader', 'local_cookiebanner'),
+        //             body: templatedata.advancedtext,
+        //         }).then(modal => modal.show())
+        //           .catch(error =>
+        //             // eslint-disable-next-line no-console
+        //             console.error('Modal creation failed:', error));
+        //     });
+        // } else if (settingsButton) {
+        //     settingsButton.style.display = "none";
+        // }
 
         return null;
     }).catch(error => {
@@ -84,10 +84,10 @@ export const showbanner = (text, showadvanced, advancedtext, loggedin) => {
 };
 
 
-export const init = (text, showadvanced, advancedtext, loggedin) => {
+export const init = (data, loggedin) => {
     if (localStorage.getItem("cookie_consent_remember")) {
         return Promise.resolve();
     }
 
-    return showbanner(text, showadvanced, advancedtext, loggedin);
+    return showbanner(data, loggedin);
 };
