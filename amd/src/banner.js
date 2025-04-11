@@ -14,9 +14,8 @@ export const showbanner = (templatedata, loggedin) => {
     if (bannerisopen) {
         return;
     }
-    console.log(templatedata);
     bannerisopen = true;
-    return Templates.renderForPromise('local_cookiebanner/bannercard', 
+    return Templates.renderForPromise('local_cookiebanner/bannercard',
         {'templatedata': templatedata}
     ).then(({ html, js }) => {
         const container = document.createElement('div');
@@ -54,8 +53,8 @@ export const showbanner = (templatedata, loggedin) => {
                 localStorage.setItem("cookie_consent_remember", "all");
                 Setcookie.init();
             } else {
-                Setcookie.init();
                 localStorage.setItem("cookie_consent_remember", "tech");
+                Setcookie.init();
             }
             closeBanner();
         });
