@@ -23,7 +23,7 @@
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-$string['accept'] = 'Accept';
+$string['accept'] = 'Accept all';
 $string['advanced'] = 'Advanced';
 $string['advancedtext'] = 'Advanced modal text';
 $string['advancedtext_default'] = 'Here you can customize your cookie preferences. This modal could list categories like necessary, statistics, marketing, etc.';
@@ -35,9 +35,19 @@ The essential one is the session cookie, usually called MoodleSession. You must 
 
 The other cookie is purely for convenience, usually called MOODLEID or similar. It just remembers your username in the browser. This means that when you return to this site, the username field on the login page is already filled in for you. It is safe to refuse this cookie - you will just have to retype your username each time you log in.';
 $string['cookietext_desc'] = 'Text displayed in the cookie banner. You can include basic HTML.';
+$string['impressum'] = 'Imprint';
+$string['imprinturl'] = 'Imprint URL';
+$string['imprinturl_desc'] = 'Link to your site\'s legal imprint (Impressum) page.';
 $string['modalbody'] = 'Here you can customize your cookie preferences. [Add options here]';
 $string['modalheader'] = 'Cookie Settings';
+$string['moodleid'] = 'Moodle ID';
+$string['necessarycookies'] = 'Technically necessary cookies';
 $string['pluginname'] = 'Cookie Banner';
+$string['privacy'] = 'Privacy policy';
+$string['privacyurl'] = 'Privacy policy URL';
+$string['privacyurl_desc'] = 'Link to your site\'s data protection/privacy policy page.';
 $string['reject'] = 'Reject all';
+$string['save'] = 'Save settings';
 $string['showadvanced'] = 'Show advanced settings button';
 $string['showadvanced_desc'] = 'If enabled, the cookie banner will display the "Advanced" button that opens a modal.';
+$string['statisticscookies'] = 'Statistics';

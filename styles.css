@@ -38,3 +38,52 @@
 #cookie-banner-wrapper {
     position: relative;
 }
+
+.cookie-consent-card {
+    max-width: 600px;
+    background: #fff;
+    border-radius: 12px;
+    padding: 30px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.1);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 1px solid;
+}
+.cookie-text {
+    font-size: 15px;
+    margin-bottom: 20px;
+}
+.cookie-options label {
+    display: block;
+    margin: 10px 0;
+}
+.cookie-buttons {
+    margin-top: 20px;
+    display: flex;
+    gap: 10px;
+}
+.cookie-btn.primary {
+    background-color: #005073;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    padding: 10px 20px;
+}
+.cookie-btn.secondary {
+    background: transparent;
+    border: 1px solid #005073;
+    border-radius: 20px;
+    padding: 10px 20px;
+    color: #005073;
+}
+.cookie-footer {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 13px;
+}
+.cookie-footer a {
+    color: #005073;
+    text-decoration: underline;
+}

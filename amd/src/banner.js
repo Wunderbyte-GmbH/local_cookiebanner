@@ -7,54 +7,87 @@
 import Templates from 'core/templates';
 import ModalFactory from 'core/modal_factory';
 import {getString} from 'core/str';
+import * as Setcookie from 'local_cookiebanner/init'; // ← import your init module
+let bannerisopen = false;
 
-export const init = (text, showadvanced, advancedtext) => {
-    if (localStorage.getItem("cookieAccepted") || localStorage.getItem("cookieRejected")) {
+export const showbanner = (text, showadvanced, advancedtext, loggedin) => {
+    if (bannerisopen) {
+        return;
+    }
+    bannerisopen = true; // ✅ Lock
+    return Templates.renderForPromise('local_cookiebanner/bannercard', {
+        text,
+        showadvanced
+    }).then(({ html, js }) => {
+        const container = document.createElement('div');
+        container.innerHTML = html;
+        const banner = container.firstElementChild;
+
+        if (!banner) {
+            throw new Error("Template did not return valid HTML.");
+        }
+
+        document.body.appendChild(banner);
+        Templates.runTemplateJS(js);
+
+        const moodleIdCheckbox = banner.querySelector("#cookie-moodle-id");
+
+        if (moodleIdCheckbox && localStorage.getItem("cookie_consent_remember") === "setall") {
+            moodleIdCheckbox.checked = true;
+        }
+        const closeBanner = () => {
+            banner.remove();
+            bannerisopen = false;
+        };
+
+        banner.querySelector("#cookie-accept-all")?.addEventListener("click", () => {
+            localStorage.setItem("cookie_consent_remember", "all");
+            closeBanner();
+            if (loggedin) {
+                Setcookie.init();
+            }
+        });
+
+        banner.querySelector("#cookie-save")?.addEventListener("click", () => {
+            const moodleIdCheckbox = banner.querySelector("#cookie-moodle-id");
+            if (moodleIdCheckbox?.checked) {
+                localStorage.setItem("cookie_consent_remember", "all");
+                Setcookie.init();
+            } else {
+                Setcookie.init();
+                localStorage.setItem("cookie_consent_remember", "tech");
+            }
+            closeBanner();
+        });
+
+        const settingsButton = banner.querySelector("#cookie-settings");
+        if (showadvanced && settingsButton) {
+            settingsButton.addEventListener("click", () => {
+                ModalFactory.create({
+                    title: getString('modalheader', 'local_cookiebanner'),
+                    body: advancedtext,
+                }).then(modal => modal.show())
+                  .catch(error =>
+                    // eslint-disable-next-line no-console
+                    console.error('Modal creation failed:', error));
+            });
+        } else if (settingsButton) {
+            settingsButton.style.display = "none";
+        }
+
+        return null;
+    }).catch(error => {
+        // eslint-disable-next-line no-console
+        console.error('Failed to render cookie banner:', error);
+        bannerisopen = false; // 🔓 Reset lock on failure
+    });
+};
+
+
+export const init = (text, showadvanced, advancedtext, loggedin) => {
+    if (localStorage.getItem("cookie_consent_remember")) {
         return Promise.resolve();
     }
 
-    return Templates.render('local_cookiebanner/banner', text, showadvanced)
-        .then(([html, js]) => {
-            const temp = document.createElement('div');
-            temp.innerHTML = html;
-            const banner = temp.firstElementChild;
-
-            document.body.appendChild(banner);
-            Templates.runTemplateJS(js);
-
-            banner.querySelector("#cookie-accept")?.addEventListener("click", () => {
-                localStorage.setItem("cookieAccepted", "true");
-                banner.remove();
-            });
-
-            banner.querySelector("#cookie-reject")?.addEventListener("click", () => {
-                localStorage.setItem("cookieRejected", "true");
-                banner.remove();
-            });
-
-            const settingsButton = banner.querySelector("#cookie-settings");
-            if (showadvanced && settingsButton) {
-                settingsButton.addEventListener("click", () => {
-                    ModalFactory.create({
-                        title: getString('modalheader', 'local_cookiebanner'),
-                        body: advancedtext
-                    }).then(modal => {
-                        modal.show();
-                        return;
-                    }).catch(error => {
-                        // eslint-disable-next-line
-                        console.error('Modal creation failed:', error);
-                        return;
-                    });
-                });
-            } else if (settingsButton) {
-                settingsButton.style.display = "none";
-            }
-
-            return null;
-        })
-        .catch(error => {
-            // eslint-disable-next-line
-            console.error('Failed to render cookie banner:', error);
-        });
+    return showbanner(text, showadvanced, advancedtext, loggedin);
 };

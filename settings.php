@@ -44,6 +44,21 @@ if ($hassiteconfig) {
         get_string('advancedtext_desc', 'local_cookiebanner'),
         get_string('advancedtext_default', 'local_cookiebanner')
     ));
+    $settings->add(new admin_setting_configtext(
+        'local_cookiebanner/imprinturl',
+        get_string('imprinturl', 'local_cookiebanner'),
+        get_string('imprinturl_desc', 'local_cookiebanner'),
+        '',
+        PARAM_URL
+    ));
+
+    $settings->add(new admin_setting_configtext(
+        'local_cookiebanner/privacyurl',
+        get_string('privacyurl', 'local_cookiebanner'),
+        get_string('privacyurl_desc', 'local_cookiebanner'),
+        '',
+        PARAM_URL
+    ));
 
 
     $ADMIN->add('localplugins', $settings);

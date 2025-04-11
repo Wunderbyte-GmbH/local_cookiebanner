@@ -23,7 +23,7 @@
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-$string['accept'] = 'Akzeptieren';
+$string['accept'] = 'Alle akzeptieren';
 $string['advanced'] = 'Erweitert';
 $string['advancedtext'] = 'Text im erweiterten Modal';
 $string['advancedtext_default'] = 'Hier können Sie Ihre Cookie-Einstellungen anpassen. In diesem Modal können Kategorien wie notwendig, Statistik, Marketing usw. aufgelistet werden.';
@@ -35,9 +35,19 @@ Das einzig notwendige Cookie heißt MoodleSession. Dieses Cookie muss erlaubt se
 
 Das andere Cookie dient der Bequemlichkeit und heißt MoodleID. Dieses Cookie speichert Ihren Anmeldenamen im Webbrowser und bleibt auch nach dem Abmelden erhalten. Beim nächsten Besuch der Website ist Ihr Anmeldename dann bereits für die Anmeldung eingetragen. Dieses Cookie können Sie verbieten, müssen dann aber Ihren Anmeldenamen immer neu eingeben.';
 $string['cookietext_desc'] = 'Text, der im Cookie-Banner angezeigt wird. Sie können einfaches HTML einfügen.';
+$string['impressum'] = 'Impressum';
+$string['imprinturl'] = 'Impressum-URL';
+$string['imprinturl_desc'] = 'Link zur Impressumsseite Ihrer Website.';
 $string['modalbody'] = 'Hier können Sie Ihre Cookie-Einstellungen anpassen. [Optionen hier einfügen]';
 $string['modalheader'] = 'Cookie-Einstellungen';
+$string['moodleid'] = 'Moodle ID';
+$string['necessarycookies'] = 'technisch notwendige Cookies';
 $string['pluginname'] = 'Cookie-Banner';
+$string['privacy'] = 'Datenschutz';
+$string['privacyurl'] = 'Datenschutz-URL';
+$string['privacyurl_desc'] = 'Link zur Datenschutzerklärung Ihrer Website.';
 $string['reject'] = 'Alle ablehnen';
+$string['save'] = 'Einstellung speichern';
 $string['showadvanced'] = 'Schaltfläche für erweiterte Einstellungen anzeigen';
 $string['showadvanced_desc'] = 'Wenn aktiviert, zeigt das Cookie-Banner die Schaltfläche "Erweitert" an, die ein Modal öffnet.';
+$string['statisticscookies'] = 'Statistik';
