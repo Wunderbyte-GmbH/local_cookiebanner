@@ -5,58 +5,57 @@
  */
 
 import Ajax from 'core/ajax';
+import { getDBItem, setDBItem } from 'local_cookiebanner/db';
 
-export const init = (hascookie, templatedata, loggedin) => {
+/**
+ * Initialize cookie banner logic using IndexedDB
+ */
+export const init = async (hascookie, templatedata, loggedin) => {
     const link = document.getElementById('cookie-settings-link');
     if (link) {
         link.addEventListener('click', (e) => {
             e.preventDefault();
-
             require(['local_cookiebanner/banner'], function(banner) {
                 banner.showbanner(templatedata, loggedin);
             });
         });
     }
-    if (localStorage.getItem('cookie_consent_remember') == 'settech' && hascookie) {
+
+    const consent = await getDBItem('cookie_consent_remember');
+
+    if (consent === 'settech' && hascookie) {
         Ajax.call([{
             methodname: 'local_cookiebanner_delete_username_cookie',
             args: {}
         }])[0].then(() => {
-            // eslint-disable-next-line no-console
             console.log("Moodle username cookie deleted.");
-            localStorage.setItem('cookie_consent_remember', 'settech');
-            return null;
+            return setDBItem('cookie_consent_remember', 'settech');
         }).catch(error => {
-            // eslint-disable-next-line no-console
-            console.error("Failed to set Moodle username cookie:", error);
+            console.error("Failed to delete Moodle username cookie:", error);
         });
     }
-    if (localStorage.getItem('cookie_consent_remember') == 'all') {
+
+    if (consent === 'all') {
         Ajax.call([{
             methodname: 'local_cookiebanner_set_username_cookie',
             args: {}
         }])[0].then(() => {
-            // eslint-disable-next-line no-console
             console.log("Moodle username cookie set.");
-            localStorage.setItem('cookie_consent_remember', 'setall');
-            return null;
+            return setDBItem('cookie_consent_remember', 'setall');
         }).catch(error => {
-            // eslint-disable-next-line no-console
             console.error("Failed to set Moodle username cookie:", error);
         });
     }
-    if (localStorage.getItem('cookie_consent_remember') == 'tech') {
+
+    if (consent === 'tech') {
         Ajax.call([{
             methodname: 'local_cookiebanner_delete_username_cookie',
             args: {}
         }])[0].then(() => {
-            // eslint-disable-next-line no-console
             console.log("Moodle username cookie deleted.");
-            localStorage.setItem('cookie_consent_remember', 'settech');
-            return null;
+            return setDBItem('cookie_consent_remember', 'settech');
         }).catch(error => {
-            // eslint-disable-next-line no-console
-            console.error("Failed to set Moodle username cookie:", error);
+            console.error("Failed to delete Moodle username cookie:", error);
         });
     }
 };

@@ -6,18 +6,21 @@
 
 import Templates from 'core/templates';
 import ModalFactory from 'core/modal_factory';
-import {getString} from 'core/str';
-import * as Setcookie from 'local_cookiebanner/init'; // ← import your init module
+import { getString } from 'core/str';
+import * as Setcookie from 'local_cookiebanner/init';
+import { getDBItem, setDBItem } from 'local_cookiebanner/db';
+
 let bannerisopen = false;
 
-export const showbanner = (templatedata, loggedin) => {
+export const showbanner = async (templatedata, loggedin) => {
     if (bannerisopen) {
         return;
     }
     bannerisopen = true;
-    return Templates.renderForPromise('local_cookiebanner/bannercard',
-        {'templatedata': templatedata}
-    ).then(({ html, js }) => {
+
+    return Templates.renderForPromise('local_cookiebanner/bannercard', {
+        'templatedata': templatedata
+    }).then(async ({ html, js }) => {
         const container = document.createElement('div');
         container.innerHTML = html;
         const banner = container.firstElementChild;
@@ -31,35 +34,41 @@ export const showbanner = (templatedata, loggedin) => {
 
         const moodleIdCheckbox = banner.querySelector("#cookie-moodle-id");
 
-        if (moodleIdCheckbox && localStorage.getItem("cookie_consent_remember") === "setall") {
+        // Check current consent state from IndexedDB
+        const consent = await getDBItem("cookie_consent_remember");
+        if (moodleIdCheckbox && consent === "setall") {
             moodleIdCheckbox.checked = true;
         }
+
         const closeBanner = () => {
             banner.remove();
             bannerisopen = false;
         };
 
-        banner.querySelector("#cookie-accept-all")?.addEventListener("click", () => {
-            localStorage.setItem("cookie_consent_remember", "all");
+        banner.querySelector("#cookie-accept-all")?.addEventListener("click", async () => {
+            await setDBItem("cookie_consent_remember", "all");
             closeBanner();
             if (loggedin) {
                 Setcookie.init();
             }
         });
 
-        banner.querySelector("#cookie-save")?.addEventListener("click", () => {
+        banner.querySelector("#cookie-save")?.addEventListener("click", async () => {
             const moodleIdCheckbox = banner.querySelector("#cookie-moodle-id");
             if (moodleIdCheckbox?.checked) {
-                localStorage.setItem("cookie_consent_remember", "all");
-                Setcookie.init();
+                await setDBItem("cookie_consent_remember", "all");
+                console.log('cookie_consent_remember all');
+
             } else {
-                localStorage.setItem("cookie_consent_remember", "tech");
-                Setcookie.init();
+                await setDBItem("cookie_consent_remember", "tech");
+                console.log('cookie_consent_remember tech');
             }
             closeBanner();
+            Setcookie.init();
         });
 
-        const settingsButton = banner.querySelector("#cookie-settings");
+        // Optional advanced settings modal logic (commented out)
+        // const settingsButton = banner.querySelector("#cookie-settings");
         // if (templatedata.showadvanced && settingsButton) {
         //     settingsButton.addEventListener("click", () => {
         //         ModalFactory.create({
@@ -67,7 +76,6 @@ export const showbanner = (templatedata, loggedin) => {
         //             body: templatedata.advancedtext,
         //         }).then(modal => modal.show())
         //           .catch(error =>
-        //             // eslint-disable-next-line no-console
         //             console.error('Modal creation failed:', error));
         //     });
         // } else if (settingsButton) {
@@ -76,17 +84,15 @@ export const showbanner = (templatedata, loggedin) => {
 
         return null;
     }).catch(error => {
-        // eslint-disable-next-line no-console
         console.error('Failed to render cookie banner:', error);
-        bannerisopen = false; // 🔓 Reset lock on failure
+        bannerisopen = false; // Reset lock on failure
     });
 };
 
-
-export const init = (data, loggedin) => {
-    if (localStorage.getItem("cookie_consent_remember")) {
+export const init = async (data, loggedin) => {
+    const consent = await getDBItem("cookie_consent_remember");
+    if (consent) {
         return Promise.resolve();
     }
-
     return showbanner(data, loggedin);
 };
