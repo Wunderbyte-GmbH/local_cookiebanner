@@ -95,7 +95,7 @@ export const init = async (data, loggedin) => {
         link.addEventListener('click', (e) => {
             e.preventDefault();
             require(['local_cookiebanner/banner'], function(banner) {
-                banner.showbanner(templatedata, loggedin);
+                banner.showbanner(data, loggedin);
             });
         });
     }
