@@ -25,7 +25,7 @@
 defined('MOODLE_INTERNAL') || die();
 
 $plugin->component = 'local_cookiebanner';
-$plugin->version = 2025041100;
+$plugin->version = 2025041101;
 $plugin->requires = 2024040800;
 $plugin->maturity = MATURITY_STABLE;
 $plugin->release = '1.0.0';

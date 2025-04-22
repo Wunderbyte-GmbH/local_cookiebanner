@@ -90,6 +90,16 @@ export const showbanner = async (templatedata, loggedin) => {
 };
 
 export const init = async (data, loggedin) => {
+    const link = document.getElementById('cookie-settings-link');
+    if (link) {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            require(['local_cookiebanner/banner'], function(banner) {
+                banner.showbanner(templatedata, loggedin);
+            });
+        });
+    }
+
     const consent = await getDBItem("cookie_consent_remember");
     if (consent) {
         return Promise.resolve();

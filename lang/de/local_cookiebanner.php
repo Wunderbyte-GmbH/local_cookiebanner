@@ -29,11 +29,12 @@ $string['advancedtext'] = 'Text im erweiterten Modal';
 $string['advancedtext_default'] = 'Hier können Sie Ihre Cookie-Einstellungen anpassen. In diesem Modal können Kategorien wie notwendig, Statistik, Marketing usw. aufgelistet werden.';
 $string['advancedtext_desc'] = 'Text, der im Modal angezeigt wird, wenn ein Benutzer auf die Schaltfläche "Erweitert" klickt.';
 $string['cookietext'] = 'Cookie-Banner-Text';
-$string['cookietext_default'] = 'Moodle verwendet zwei Cookies:
-
-Das einzig notwendige Cookie heißt MoodleSession. Dieses Cookie muss erlaubt sein, damit Sie in Moodle beim Wechsel von Seite zu Seite angemeldet bleiben. Beim Abmelden oder beim Beenden des Webbrowsers wird das Cookie automatisch gelöscht (im Browser und auf dem Server).
-
-Das andere Cookie dient der Bequemlichkeit und heißt MoodleID. Dieses Cookie speichert Ihren Anmeldenamen im Webbrowser und bleibt auch nach dem Abmelden erhalten. Beim nächsten Besuch der Website ist Ihr Anmeldename dann bereits für die Anmeldung eingetragen. Dieses Cookie können Sie verbieten, müssen dann aber Ihren Anmeldenamen immer neu eingeben.';
+$string['cookietext_default'] = 'Wir verwenden Cookies, um Ihnen die optimale Nutzung unserer Webseite
+    zu ermöglichen. Es werden für den Betrieb der Seite notwendige Cookies
+    gesetzt. Mit Ihrer Zustimmung zum Cookie „MoodleID“ kann auf Wunsch
+    der Benutzernamen im Webbrowser gespeichert werden. Beim nächsten
+    Login erscheint der Anmeldename bereits automatisch. Erfahren Sie mehr
+    dazu in unseren Datenschutzhinweisen.';
 $string['cookietext_desc'] = 'Text, der im Cookie-Banner angezeigt wird. Sie können einfaches HTML einfügen.';
 $string['enableplugin'] = 'Cookie-Banner aktivieren';
 $string['enableplugin_desc'] = 'Wenn deaktiviert, wird der Cookie-Banner nicht angezeigt.';
